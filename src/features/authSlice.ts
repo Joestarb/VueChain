@@ -2,6 +2,7 @@ import { defineStore } from "pinia"
 import axios from 'axios'
 import { baseUrl } from '@/utils/baseUrl'
 import type { User } from '../types/userInterface'
+import type { Login } from '../types/userInterface'
 
 export const useAuthStore = defineStore('auth', {
   actions: {
@@ -10,12 +11,27 @@ export const useAuthStore = defineStore('auth', {
         const response = await axios.post(`${baseUrl}/api/Auth/register`, {
           username: user.username,
           password: user.password,
-          email: user.email
+          email: user.email,
+          role: user.role
         });
 
         return response.data;
       } catch (error) {
         console.error('Error registering user:', error);
+        throw error;
+      }
+    },
+
+    async login(login: Login) {
+      try {
+        const response = await axios.post(`${baseUrl}/api/Auth/login`, {
+          password: login.password,
+          email: login.email,
+        });
+
+        return response.data;
+      } catch (error) {
+        console.error('Error logging in user:', error);
         throw error;
       }
     }
