@@ -68,11 +68,15 @@ const handleSubmit = async () => {
     }
 
     if (response.token) {
-      console.log('respuesta', response.token)
+      // console.log('respuesta', response)
+
+      localStorage.setItem('userToken', JSON.stringify(response));
+
       Swal.fire(responseStatus.token)
     } else {
       Swal.fire(responseStatus.default)
     }
+
 
   } catch (error) {
     Swal.fire({
@@ -82,4 +86,7 @@ const handleSubmit = async () => {
     })
   }
 }
+
+
+
 </script>

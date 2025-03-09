@@ -11,8 +11,7 @@ export const useAuthStore = defineStore('auth', {
         const response = await axios.post(`${baseUrl}/api/Auth/register`, {
           username: user.username,
           password: user.password,
-          email: user.email,
-          role: user.role
+          email: user.email
         });
 
         return response.data;
@@ -26,13 +25,39 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await axios.post(`${baseUrl}/api/Auth/login`, {
           password: login.password,
-          email: login.email,
+          email: login.email
         });
 
         return response.data;
       } catch (error) {
         console.error('Error logging in user:', error);
         throw error;
+      }
+    },
+    async logout(token: string) {
+      try {
+        const response = await axios.delete(`${baseUrl}/api/Auth/logout`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        return response.data;
+      } catch (error) {
+        console.error('Error logging out user:', error);
+        throw error;
+      }
+    },
+
+    async verifyToken(token: string) {
+      try {
+        const response = await axios.post(`${baseUrl}/api/Auth/verify-token`,{
+          token: token,
+        });
+        return response.data;
+      } catch (error) {
+        console.error('Error no found token:', error);
+        throw error;
+
       }
     }
   }
