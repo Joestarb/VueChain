@@ -12,7 +12,7 @@ export const useTokenStore = defineStore('token', {
 
       try {
         const parsedToken = JSON.parse(userToken);
-        return parsedToken.token;
+        return parsedToken;
       } catch (error) {
         console.error('Error parsing token:', error);
         return null;
