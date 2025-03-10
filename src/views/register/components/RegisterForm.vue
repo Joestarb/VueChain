@@ -1,16 +1,44 @@
 <template>
-  <div class="z-50">
-    <form @submit.prevent="handleSubmit" class="text-white flex flex-col gap-2 z-50 bg-opacity-20 bg-purple-500/5 shadow-lg rounded-2xl p-6 w-96 border border-white/20">
-      <p class="text-4xl text-center">Registro</p>
-      <InputComponent placeholder="Jonh Doe" v-model="name" labelTittle="Nombre" :icon="User" />
-      <InputComponent placeholder="example@example.com" v-model="email" labelTittle="Email" :icon="Mail" />
-      <InputComponent placeholder="*****" v-model="password" labelTittle="Contraseña" type="password" :icon="LockKeyhole" />
-      <InputComponent placeholder="*****" v-model="passwordConfirmation" labelTittle="Confirmar Contraseña" type="password" :icon="LockKeyhole" />
-      <p class="text-gray-500">Ya tienes una cuenta? <RouterLink to="/" class="underline cursor-pointer">Inicia Sesion aquí</RouterLink></p>
-      <ButtonComponent
-        type="submit"
-        own-style="w-full cursor-pointer"
-        title="Registrarse"/>
+  <div class="   ">
+    <form
+      @submit.prevent="handleSubmit"
+      class="text-white h-screen items-center justify-center flex flex-col gap-8"
+    >
+      <p class="text-4xl text-center font-semibold" style="font-family: 'Mona Sans', sans-serif">
+        Crear Una Cuenta
+      </p>
+      <p class="text-gray-500">
+        Ya tienes una cuenta?
+        <RouterLink to="/" class="underline cursor-pointer">Inicia Sesion aquí</RouterLink>
+      </p>
+      <div  class="   lg:flex w-full gap-4">
+        <InputComponent
+          classes="p-4"
+          placeholder="Nombre" v-model="name" :icon="User" />
+        <InputComponent
+          placeholder="example@example.com"
+          v-model="email"
+          :icon="Mail"
+        />
+      </div>
+
+      <InputComponent
+        placeholder="Contraseña"
+        v-model="password"
+        type="password"
+        :icon="LockKeyhole"
+      />
+      <InputComponent
+        placeholder="*****"
+        v-model="passwordConfirmation"
+        type="password"
+        :icon="LockKeyhole"
+      />
+      <div class=" w-full">
+        <ButtonComponent type="submit" own-style="  w-full px-12 cursor-pointer" title="Registrarse" />
+
+      </div>
+
     </form>
   </div>
 </template>
@@ -32,24 +60,23 @@ const passwordConfirmation = ref('')
 const isOpen = ref(false)
 const authStore = useAuthStore()
 const navigate = useRouter()
-const roleUser = 'USER';
+const roleUser = 'USER'
 const handleSubmit = async () => {
-
   const arrayValues = [name.value, email.value, password.value, passwordConfirmation.value]
 
   const validations = {
     emptyFields: {
-      condition: arrayValues.some(value => value.trim() === ''),
-      message: 'Todos los campos son requeridos'
+      condition: arrayValues.some((value) => value.trim() === ''),
+      message: 'Todos los campos son requeridos',
     },
     passwordsMismatch: {
       condition: password.value !== passwordConfirmation.value,
-      message: 'Las contraseñas no coinciden'
+      message: 'Las contraseñas no coinciden',
     },
     passwordTooShort: {
       condition: password.value.length < 6,
-      message: 'La contraseña debe tener al menos 6 caracteres'
-    }
+      message: 'La contraseña debe tener al menos 6 caracteres',
+    },
   }
 
   for (const key in validations) {
@@ -64,13 +91,12 @@ const handleSubmit = async () => {
     }
   }
 
-
   try {
     const response = await authStore.registerUser({
       username: name.value,
       password: password.value,
       email: email.value,
-      role: roleUser
+      role: roleUser,
     })
     const responseStatus = {
       200: {
@@ -88,12 +114,12 @@ const handleSubmit = async () => {
         icon: 'error',
         title: 'Error',
         text: 'Algo salio mal comuniquese con el administrador',
-      }
+      },
     }
     Swal.fire(responseStatus[response.statusCode] || responseStatus.default)
     console.log(response)
     if (response.statusCode == 200) {
-      navigate.push('/');
+      navigate.push('/')
     }
   } catch (error) {
     Swal.fire({

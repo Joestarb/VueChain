@@ -1,6 +1,8 @@
 <template>
   <div class="z-50">
-    <form @submit.prevent="handleSubmit" class="text-white flex flex-col gap-2 z-50 bg-opacity-20 bg-purple-500/5 shadow-lg rounded-2xl p-6 w-96 border border-white/20">
+    <form @submit.prevent="handleSubmit"
+          class="text-white h-screen items-center justify-center flex flex-col gap-8"
+    >
       <p class="text-4xl text-center">Iniciar Sesion</p>
       <InputComponent placeholder="example@example.com" v-model="email" labelTittle="Email" :icon="Mail" />
       <InputComponent placeholder="*****" v-model="password" labelTittle="Password" type="password" :icon="LockKeyhole" />
@@ -21,10 +23,12 @@ import ButtonComponent from '@/components/common/ButtonComponent.vue'
 import Swal from 'sweetalert2'
 import { useAuthStore } from '@/features/authSlice'
 import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
+
 const email = ref('')
 const password = ref('')
 const authStore = useAuthStore()
-
+const router = useRouter()
 const handleSubmit = async () => {
 
   const arrayValues = [ email.value, password.value, ]
@@ -70,6 +74,7 @@ const handleSubmit = async () => {
     if (response.token) {
       // console.log('respuesta', response)
 
+      router.push('/dashboard')
       localStorage.setItem('userToken', JSON.stringify(response));
 
       Swal.fire(responseStatus.token)

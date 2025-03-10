@@ -20,7 +20,7 @@ export const useTokenStore = defineStore('token', {
     },
 
     removeToken() {
-      localStorage.removeItem('token');
+      localStorage.removeItem('userToken');
     }
   }
 });
