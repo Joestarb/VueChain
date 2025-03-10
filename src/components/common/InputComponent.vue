@@ -15,8 +15,8 @@
         :type="type"
         :placeholder="placeholder"
         :value="modelValue"
-        :class="['w-full px-4 py-2 rounded-xl border text-white border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none',
-          icon ? 'pl-10' : '']"
+        :class="[`${classes}`,'  w-full px-4 py-5 rounded-xl border text-white border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none',
+            icon ? 'pl-10' : '']"
         @input="$emit('update:modelValue', $event.target.value)"
         @blur="$emit('blur', $event)"
         @change="$emit('change', $event)"
@@ -52,7 +52,7 @@ defineProps({
     default: false,
   },
   icon: {
-    type: [Object, Function] ,
+    type: [Object, Function],
     default: null,
   }
 })

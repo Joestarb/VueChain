@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button :class="[ownStyle ,' w-full' ,'text-white', 'p-2','rounded-lg',' bg-[#3D8D7A]','hover:bg-[#155747]','focus:outline-none', 'cursor-pointer', 'transition', 'duration-500']">
+    <button :class="[ownStyle , ,'text-white', 'p-2','rounded-lg',' bg-[#211C84]','hover:bg-[#205781]','focus:outline-none', 'cursor-pointer', 'transition', 'duration-500']">
       {{ title }}
     </button>
   </div>

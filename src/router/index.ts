@@ -44,6 +44,7 @@ router.beforeEach(async (to, from, next) => {
       next({ name: 'LoginView' })
     }
   } else {
+
     next()
   }
 })

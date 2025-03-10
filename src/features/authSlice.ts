@@ -11,7 +11,8 @@ export const useAuthStore = defineStore('auth', {
         const response = await axios.post(`${baseUrl}/api/Auth/register`, {
           username: user.username,
           password: user.password,
-          email: user.email
+          email: user.email,
+          role: user.role
         });
 
         return response.data;
@@ -34,12 +35,12 @@ export const useAuthStore = defineStore('auth', {
         throw error;
       }
     },
+
+
     async logout(token: string) {
       try {
         const response = await axios.delete(`${baseUrl}/api/Auth/logout`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          data: { token: token }
         });
         return response.data;
       } catch (error) {
@@ -47,7 +48,6 @@ export const useAuthStore = defineStore('auth', {
         throw error;
       }
     },
-
     async verifyToken(token: string) {
       try {
         const response = await axios.post(`${baseUrl}/api/Auth/verify-token`,{
