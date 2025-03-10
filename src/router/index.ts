@@ -35,8 +35,15 @@ router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (token) {
       try {
-        await authStore.verifyToken(token)
-        next()
+        const response = await authStore.verifyToken(token.token)
+        console.log(response.username)
+        console.log(token.username)
+        if (response.role === token.role) {
+          next()
+        }
+        else{
+          next({ name: 'LoginView' })
+        }
       } catch (error) {
         next({ name: 'LoginView' })
       }
