@@ -14,11 +14,12 @@ const authStore = useAuthStore()
 const navigate = useRouter()
 
 const tokenStore = useTokenStore()
+const token = tokenStore.getToken()
 
 
 const logout = () => {
   tokenStore.removeToken()
-  authStore.logout(tokenStore.getToken())
+  authStore.logout(token.token)
   navigate.push('/')
 
 }
