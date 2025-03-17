@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import InputComponent from '@/components/common/InputComponent.vue'
-import { Mail, LockKeyhole, User } from 'lucide-vue-next'
+import { Mail, LockKeyhole,  } from 'lucide-vue-next'
 import { ref } from 'vue'
 import ButtonComponent from '@/components/common/ButtonComponent.vue'
 import Swal from 'sweetalert2'
