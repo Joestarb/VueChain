@@ -3,8 +3,13 @@ import axios from 'axios'
 import { baseUrl } from '@/utils/baseUrl'
 import type { User } from '../types/userInterface'
 import type { Login } from '../types/userInterface'
+import type { AuthResponse } from '../types/userInterface'
 
 export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    user: null as AuthResponse | null,
+  }),
+
   actions: {
     async registerUser(user: User) {
       try {
@@ -29,10 +34,23 @@ export const useAuthStore = defineStore('auth', {
           email: login.email
         });
 
+        if (response.data) {
+          this.user = response.data; // 🔹 Guarda el usuario en el estado
+          localStorage.setItem("user", JSON.stringify(response.data)); // Guarda en localStorage
+        }
+
+
         return response.data;
       } catch (error) {
         console.error('Error logging in user:', error);
         throw error;
+      }
+    },
+
+    loadUserFromStorage() {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        this.user = JSON.parse(storedUser);
       }
     },
 
@@ -42,6 +60,10 @@ export const useAuthStore = defineStore('auth', {
         const response = await axios.delete(`${baseUrl}/api/Auth/logout`, {
           data: { token: token }
         });
+
+        this.user = null; // Elimina el usuario del estado
+        localStorage.removeItem("user"); // Elimina del localStorage
+
         return response.data;
       } catch (error) {
         console.error('Error logging out user:', error);
