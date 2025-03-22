@@ -60,7 +60,7 @@ export const useTradingStore = defineStore('trading', {
 
 
         this.cryptoData = response.data;
-        console.log("Crypto Data:", this.cryptoData);
+        // console.log("Crypto Data:", this.cryptoData);
       } catch (err) {
         this.error = err.response?.data?.message || 'Error al obtener datos';
       } finally {
