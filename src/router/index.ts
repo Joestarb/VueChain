@@ -8,6 +8,7 @@ import ContactView from '@/views/Contacto/ContactView.vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useAuthStore } from '@/features/authSlice'
 import { useTokenStore } from '@/stores/TokenStore'
+import BuyandSellView from '@/views/Binance/BuyandSellView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +37,11 @@ const router = createRouter({
           path: '',
           name: 'Dashboard',
           component: DashboardView,
+        },
+        {
+          path: 'buyandasell', //nueva ruta para la vista de compra y venta
+          name: 'BuyAndSell',
+          component: BuyandSellView,
         },
       ],
     },

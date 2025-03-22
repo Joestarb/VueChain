@@ -39,83 +39,6 @@
           </div>
         </div>
 
-        <!-- Operaciones en Binance -->
-        <div class="col-span-full bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-          <h3 class="text-2xl font-semibold text-gray-700 mb-4">Operaciones en Binance</h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Campos de entrada -->
-            <input
-              v-model="symbol"
-              type="text"
-              placeholder="Símbolo (Ej: BTCUSDT)"
-              class="border px-4 py-2 rounded-lg w-full"
-            />
-            <input
-              v-model="quantity"
-              type="number"
-              placeholder="Cantidad"
-              class="border px-4 py-2 rounded-lg w-full"
-            />
-            <input
-              v-model="price"
-              type="number"
-              placeholder="Precio"
-              class="border px-4 py-2 rounded-lg w-full"
-            />
-            <!-- Nuevo campo userId -->
-            <input
-              v-model="userId"
-              type="text"
-              placeholder="ID de usuario"
-              class="border px-4 py-2 rounded-lg w-full"
-            />
-
-            <!-- Botón de Compra -->
-            <button
-              @click="handleBuy"
-              class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
-            >
-              Comprar
-            </button>
-
-            <!-- Botón de Venta -->
-            <button
-              @click="handleSell"
-              class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
-            >
-              Vender
-            </button>
-          </div>
-
-          <!-- Establecer Alerta de Precio -->
-          <div class="mt-4 grid grid-cols-2 gap-4">
-            <input
-              v-model="alertSymbol"
-              type="text"
-              placeholder="Símbolo para alerta"
-              class="border px-4 py-2 rounded-lg w-full"
-            />
-            <input
-              v-model="targetPrice"
-              type="number"
-              placeholder="Precio objetivo"
-              class="border px-4 py-2 rounded-lg w-full"
-            />
-            <button
-              @click="handleSetAlert"
-              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition col-span-2"
-            >
-              Establecer Alerta
-            </button>
-          </div>
-
-          <!-- Respuesta de la API -->
-          <div v-if="binanceStore.orderResponse" class="mt-4 text-gray-700">
-            <p class="text-lg">Orden procesada: {{ binanceStore.orderResponse }}</p>
-          </div>
-        </div>
-
         <!-- Empresas -->
         <div class="col-span-full">
           <h2 class="text-3xl font-bold text-gray-800 my-6">Empresas</h2>
@@ -139,44 +62,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useTradingStore } from '@/stores/useTradingStore.ts';
 import { useTokenStore } from '@/stores/TokenStore.ts';
 import { useAuthStore } from '@/features/authSlice.ts';
-import { useBinanceStore } from '@/stores/useBinanceStore.ts';
 import TradingViewWidget from '@/components/TradingViewWidget.vue';
 
 const tradingStore = useTradingStore();
 const tokenStore = useTokenStore();
 const authStore = useAuthStore();
-const binanceStore = useBinanceStore();
-
-// Variables reactivas para entrada de datos
-const symbol = ref<string>('');
-const quantity = ref<number | null>(null);
-const price = ref<number | null>(null);
-const alertSymbol = ref<string>('');
-const targetPrice = ref<number | null>(null);
-const userId = ref<string>('');  
-
-// Funciones para operaciones
-const handleBuy = () => {
-  if (symbol.value && quantity.value && price.value && userId.value) {
-    binanceStore.buyCrypto(symbol.value, quantity.value, price.value, userId.value);
-  }
-};
-
-const handleSell = () => {
-  if (symbol.value && quantity.value && price.value && userId.value) {
-    binanceStore.sellCrypto(symbol.value, quantity.value, price.value, userId.value);
-  }
-};
-
-const handleSetAlert = () => {
-  if (alertSymbol.value && targetPrice.value) {
-    binanceStore.setPriceAlert(alertSymbol.value, targetPrice.value, userId.value);
-  }
-};
 
 // Cargar datos al montar el componente
 onMounted(() => {
