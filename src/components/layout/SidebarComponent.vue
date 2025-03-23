@@ -36,6 +36,15 @@
             <span class="material-icons mr-2">Comprar</span>
           </RouterLink>
         </li>
+        <li class="mb-4">
+          <RouterLink
+            to="/dashboard/buyandasell"
+            class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
+            active-class="bg-blue-600"
+          >
+            <span class="material-icons mr-2">Compra y Venta</span>
+          </RouterLink>
+        </li>
       </ul>
     </nav>
     <ButtonComponent

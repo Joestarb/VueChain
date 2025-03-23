@@ -1,3 +1,15 @@
+import { defineStore } from "pinia"
+import axios from 'axios'
+import { baseUrl } from '@/utils/baseUrl'
+import type { User } from '../types/userInterface'
+import type { Login } from '../types/userInterface'
+import type { AuthResponse } from '../types/userInterface'
+
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    user: null as AuthResponse | null,
+  }),
+
 import { defineStore } from "pinia";
 import axios from "axios";
 import { baseUrl } from "@/utils/baseUrl";
@@ -35,7 +47,6 @@ export const useAuthStore = defineStore("auth", {
           this.user = response.data; // 🔹 Guarda el usuario en el estado
           localStorage.setItem("user", JSON.stringify(response.data)); // Guarda en localStorage
         }
-
         return response.data;
       } catch (error) {
         console.error("Error logging in user:", error);
@@ -49,6 +60,7 @@ export const useAuthStore = defineStore("auth", {
         this.user = JSON.parse(storedUser);
       }
     },
+
 
     async logout(token: string) {
       try {
