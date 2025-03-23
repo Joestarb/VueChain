@@ -2,16 +2,12 @@
   <div class="   ">
     <form
       @submit.prevent="handleSubmit"
-      class="text-white h-screen items-center justify-center flex flex-col gap-8"
+      class=" p-12 items-center justify-center flex flex-col gap-8"
     >
       <p class="text-4xl text-center font-semibold" style="font-family: 'Mona Sans', sans-serif">
-        Crear Una Cuenta
+        Registrar Usuario
       </p>
-      <p class="text-gray-500">
-        Ya tienes una cuenta?
-        <RouterLink to="/login" class="underline cursor-pointer">Inicia Sesion aquí</RouterLink>
-      </p>
-      <div  class="   lg:flex w-full gap-4">
+
         <InputComponent
           classes="p-4"
           placeholder="Nombre" v-model="name" :icon="User" />
@@ -20,7 +16,6 @@
           v-model="email"
           :icon="Mail"
         />
-      </div>
 
       <InputComponent
         placeholder="Contraseña"
@@ -61,6 +56,8 @@ const isOpen = ref(false)
 const authStore = useAuthStore()
 const navigate = useRouter()
 const roleUser = 'USER'
+const emit = defineEmits(['userRegistered'])
+
 const handleSubmit = async () => {
   const arrayValues = [name.value, email.value, password.value, passwordConfirmation.value]
 
@@ -117,9 +114,8 @@ const handleSubmit = async () => {
       },
     }
     Swal.fire(responseStatus[response.statusCode] || responseStatus.default)
-    console.log(response)
     if (response.statusCode == 200) {
-      navigate.push('/login')
+      emit('userRegistered')
     }
   } catch (error) {
     Swal.fire({

@@ -45,6 +45,19 @@
             <span class="material-icons mr-2">Compra y Venta</span>
           </RouterLink>
         </li>
+
+        <li
+          v-if="tokenStore.getToken()?.role === 'admin'"
+          class="mb-4">
+          <RouterLink
+            to="/admin/users"
+            class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
+            active-class="bg-blue-600"
+          >
+            <Wallet class="mr-2" />
+            <span class="material-icons mr-2">Users</span>
+          </RouterLink>
+        </li>
       </ul>
     </nav>
     <ButtonComponent
@@ -59,13 +72,13 @@
 import { useAuthStore } from '@/features/authSlice.ts';
 import { useTokenStore } from '@/stores/TokenStore.ts';
 import { useRouter } from 'vue-router';
-import { Home,User,Settings } from 'lucide-vue-next';
+import { Home,User,Settings, Wallet } from 'lucide-vue-next';
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 
 const tokenStore = useTokenStore();
 const authStore = useAuthStore();
 const navigate = useRouter();
-
+console.log(tokenStore.getToken()?.token);
 const logout = async () => {
   try {
     await authStore.logout(tokenStore.getToken()?.token);
@@ -77,13 +90,13 @@ const logout = async () => {
 };
 </script>
 
-<style scoped>
-/* Estilos adicionales si es necesario */
-.router-link-active {
-  background-color: #2563eb; /* Color de fondo para la ruta activa */
-}
+<!--<style scoped>-->
+<!--/* Estilos adicionales si es necesario */-->
+<!--.router-link-active {-->
+<!--  background-color: #2563eb; /* Color de fondo para la ruta activa */-->
+<!--}-->
 
-.router-link-exact-active {
-  background-color: #2563eb; /* Color de fondo para la ruta exacta */
-}
-</style>
+<!--.router-link-exact-active {-->
+<!--  background-color: #2563eb; /* Color de fondo para la ruta exacta */-->
+<!--}-->
+<!--</style>-->
