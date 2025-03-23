@@ -44,6 +44,8 @@ const router = createRouter({
           path: 'buyandasell', //nueva ruta para la vista de compra y venta
           name: 'BuyAndSell',
           component: BuyandSellView,
+        },
+        {
           path: '/sellers',
           name: 'Sellers',  // Ruta para vendedores P2P
           component: P2PSellersView,
