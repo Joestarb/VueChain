@@ -71,7 +71,7 @@ router.beforeEach(async (to, from, next) => {
 
         if (response.role === token.role || response.expiresAt > currentDate) {
           // Restricción específica para la ruta de admin
-          if (to.path === "/admin/*" && token.role !== "admin") {
+          if (to.path === "/admin/users" && token.role !== "admin") {
             next({ name: "Dashboard" }) // Redirige si no es admin
           } else {
             next() // Permite acceso si es admin o si la ruta no es restringida

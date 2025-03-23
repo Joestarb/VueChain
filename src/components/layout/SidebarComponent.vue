@@ -36,7 +36,9 @@
           </RouterLink>
         </li>
 
-        <li class="mb-4">
+        <li
+          v-if="tokenStore.getToken()?.role === 'admin'"
+          class="mb-4">
           <RouterLink
             to="/admin/users"
             class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
