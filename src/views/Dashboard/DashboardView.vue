@@ -9,7 +9,7 @@
       <div v-if="tradingStore.error" class="text-center text-red-500 text-lg">{{ tradingStore.error }}</div>
 
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Bolsa de Valores (Ajustado para ser más ancho) -->
+        <!-- Bolsa de Valores -->
         <div class="col-span-full md:col-span-3 lg:col-span-3 bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
           <h3 class="text-2xl font-semibold text-gray-700 mb-4">Bolsa de Valores</h3>
           <TradingViewWidget :symbol="'NASDAQ:AAPL'" />
@@ -46,7 +46,7 @@
         <div
           v-for="widget in tradingStore.widgetsEmpresas"
           :key="widget.symbol"
-          class="bg-white   p-6 rounded-2xl shadow-lg border border-gray-200"
+          class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200"
         >
           <h3 class="text-xl font-semibold text-gray-700 mb-4">{{ widget.symbol }}</h3>
           <iframe
@@ -77,6 +77,6 @@ onMounted(() => {
   tradingStore.fetchTradingData();
   tradingStore.fetchCryptoData();
   tradingStore.fetchCompaniesData();
-  tradingStore.fetchWidgets(); // 🔹 Se carga la lista de widgets
+  tradingStore.fetchWidgets();
 });
 </script>

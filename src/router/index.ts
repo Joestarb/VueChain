@@ -5,10 +5,13 @@ import DashboardView from '@/views/Dashboard/DashboardView.vue'
 import HomeView from '@/views/Home/HomeView.vue'
 import AboutView from '@/views/Nosotros/AboutView.vue'
 import ContactView from '@/views/Contacto/ContactView.vue'
+import P2PSellersView from '@/views/P2P/P2PSellersView.vue' // Nueva vista de vendedores P2P
+import P2PBuySimulationView from '@/views/P2P/P2PBuySimulationView.vue' // Nueva vista para simular compra
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useAuthStore } from '@/features/authSlice'
 import { useTokenStore } from '@/stores/TokenStore'
 import UserView from '@/views/admin/users/UserView.vue'
+import BuyandSellView from '@/views/Binance/BuyandSellView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +45,20 @@ const router = createRouter({
           path: '/admin/users',
           name: 'Admin',
           component: UserView,
+        },
+          path: 'buyandasell', //nueva ruta para la vista de compra y venta
+          name: 'BuyAndSell',
+          component: BuyandSellView,
+        },
+        {
+          path: '/sellers',
+          name: 'Sellers',  // Ruta para vendedores P2P
+          component: P2PSellersView,
+        },
+        {
+          path: '/p2pbuy',
+          name: 'P2PBuy', // Ruta para simular compra
+          component: P2PBuySimulationView,
         },
       ],
     },
