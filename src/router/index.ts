@@ -12,6 +12,7 @@ import { useAuthStore } from '@/features/authSlice'
 import { useTokenStore } from '@/stores/TokenStore'
 import UserView from '@/views/admin/users/UserView.vue'
 import BuyandSellView from '@/views/Binance/BuyandSellView.vue'
+import PricesView from '@/views/Prices/PricesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,12 @@ const router = createRouter({
           name: 'Admin',
           component: UserView,
         },
+        {
+          path: '/prices',
+          name: 'prices',
+          component: PricesView,
+        },
+        {
           path: 'buyandasell', //nueva ruta para la vista de compra y venta
           name: 'BuyAndSell',
           component: BuyandSellView,

@@ -3,6 +3,7 @@
     <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
     <nav class="flex-1">
       <ul>
+
         <li class="mb-4">
           <RouterLink
             to="/dashboard"
@@ -15,6 +16,17 @@
             <span class="material-icons mr-2">Dashboard</span>
           </RouterLink>
         </li>
+        <li
+          class="mb-4">
+          <RouterLink
+            to="/prices"
+            class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
+            active-class="bg-blue-600"
+          >
+            <Bitcoin class="mr-2" />
+            <span class="material-icons mr-2">Precios en Tiempo real</span>
+          </RouterLink>
+        </li>
         <li class="mb-4">
           <RouterLink
             to="/sellers"
@@ -24,7 +36,7 @@
             <User class="mr-2" />
             <span class="material-icons mr-2">Vendedores</span>
           </RouterLink>
-          
+
         </li>
         <li class="mb-4">
           <RouterLink
@@ -32,7 +44,7 @@
             class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
             active-class="bg-blue-600"
           >
-            <Settings class="mr-2" />
+            <Wallet class="mr-2" />
             <span class="material-icons mr-2">Comprar</span>
           </RouterLink>
         </li>
@@ -42,6 +54,7 @@
             class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
             active-class="bg-blue-600"
           >
+            <DollarSign/>
             <span class="material-icons mr-2">Compra y Venta</span>
           </RouterLink>
         </li>
@@ -58,6 +71,8 @@
             <span class="material-icons mr-2">Users</span>
           </RouterLink>
         </li>
+
+
       </ul>
     </nav>
     <ButtonComponent
@@ -72,7 +87,7 @@
 import { useAuthStore } from '@/features/authSlice.ts';
 import { useTokenStore } from '@/stores/TokenStore.ts';
 import { useRouter } from 'vue-router';
-import { Home,User,Settings, Wallet } from 'lucide-vue-next';
+import { Home,User,DollarSign, Wallet, Bitcoin } from 'lucide-vue-next';
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 
 const tokenStore = useTokenStore();
