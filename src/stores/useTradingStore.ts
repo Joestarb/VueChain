@@ -57,8 +57,6 @@ export const useTradingStore = defineStore('trading', {
         const response = await axios.get('/api/tradingview/cripto-currency', {
           headers: { Authorization: `Bearer ${token}` }
         });
-
-
         this.cryptoData = response.data;
       } catch (err) {
         this.error = err.response?.data?.message || 'Error al obtener datos';

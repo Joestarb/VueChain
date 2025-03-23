@@ -10,7 +10,9 @@ import P2PBuySimulationView from '@/views/P2P/P2PBuySimulationView.vue' // Nueva
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useAuthStore } from '@/features/authSlice'
 import { useTokenStore } from '@/stores/TokenStore'
+import UserView from '@/views/admin/users/UserView.vue'
 import BuyandSellView from '@/views/Binance/BuyandSellView.vue'
+import PricesView from '@/views/Prices/PricesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +41,16 @@ const router = createRouter({
           path: '',
           name: 'Dashboard',
           component: DashboardView,
+        },
+        {
+          path: '/admin/users',
+          name: 'Admin',
+          component: UserView,
+        },
+        {
+          path: '/prices',
+          name: 'prices',
+          component: PricesView,
         },
         {
           path: 'buyandasell', //nueva ruta para la vista de compra y venta
@@ -75,24 +87,32 @@ router.beforeEach(async (to, from, next) => {
   const tokenStore = useTokenStore()
   const token = tokenStore.getToken()
   const currentDate = new Date().getTime()
+  console.log('ROL USUARIO',token.role)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (token) {
       try {
         const response = await authStore.verifyToken(token.token)
+
         if (response.role === token.role || response.expiresAt > currentDate) {
-          next()
+          // Restricción específica para la ruta de admin
+          if (to.path === "/admin/users" && token.role !== "admin") {
+            next({ name: "Dashboard" }) // Redirige si no es admin
+          } else {
+            next() // Permite acceso si es admin o si la ruta no es restringida
+          }
         } else {
-          next({ name: 'LoginView' })
+          next({ name: "LoginView" })
         }
       } catch (error) {
-        next({ name: 'LoginView' })
+        next({ name: "LoginView" })
       }
     } else {
-      next({ name: 'LoginView' })
+      next({ name: "LoginView" })
     }
   } else {
     next()
   }
 })
+
 
 export default router

@@ -15,7 +15,7 @@
         :type="type"
         :placeholder="placeholder"
         :value="modelValue"
-        :class="[`${classes}`,'  w-full px-4 py-5 rounded-xl border text-white border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none',
+        :class="[`${classes}`,'  w-full px-4 py-5 rounded-xl border  border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none',
             icon ? 'pl-10' : '']"
         @input="$emit('update:modelValue', $event.target.value)"
         @blur="$emit('blur', $event)"
