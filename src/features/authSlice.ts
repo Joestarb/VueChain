@@ -37,7 +37,7 @@ export const useAuthStore = defineStore("auth", {
 
         if (response.data) {
           this.user = response.data; // 🔹 Guarda el usuario en el estado
-          localStorage.setItem("user", JSON.stringify(response.data)); // Guarda en localStorage
+          localStorage.setItem("userToken", JSON.stringify(response.data)); // Guarda en localStorage
         }
         return response.data;
       } catch (error) {

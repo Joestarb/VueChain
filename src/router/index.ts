@@ -87,7 +87,7 @@ router.beforeEach(async (to, from, next) => {
   const tokenStore = useTokenStore()
   const token = tokenStore.getToken()
   const currentDate = new Date().getTime()
-  console.log('ROL USUARIO',token.role)
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (token) {
       try {
@@ -113,6 +113,5 @@ router.beforeEach(async (to, from, next) => {
     next()
   }
 })
-
 
 export default router
