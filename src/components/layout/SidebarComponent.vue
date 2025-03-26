@@ -17,22 +17,23 @@
         </li>
         <li class="mb-4">
           <RouterLink
-            to="/profile"
+            to="/sellers"
             class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
             active-class="bg-blue-600"
           >
             <User class="mr-2" />
-            <span class="material-icons mr-2">Example</span>
+            <span class="material-icons mr-2">Vendedores</span>
           </RouterLink>
+          
         </li>
         <li class="mb-4">
           <RouterLink
-            to="/settings"
+            to="/p2pbuy"
             class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
             active-class="bg-blue-600"
           >
             <Settings class="mr-2" />
-            <span class="material-icons mr-2">settings</span>
+            <span class="material-icons mr-2">Comprar</span>
           </RouterLink>
         </li>
         <li class="mb-4">
