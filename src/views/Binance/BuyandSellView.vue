@@ -1,6 +1,5 @@
 <template>
   <div class="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-    <!-- Contenedor Principal -->
     <div class="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
       <h3 class="text-3xl font-bold text-gray-700 text-center mb-6">Operaciones en Binance</h3>
 
@@ -29,6 +28,7 @@
           type="text"
           placeholder="ID de usuario"
           class="border px-4 py-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400"
+          disabled
         />
 
         <!-- Botones de Compra y Venta -->
@@ -70,6 +70,7 @@
             type="text"
             placeholder="ID de usuario"
             class="border px-4 py-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400"
+            disabled
           />
           <button
             @click="handleSetAlert"
@@ -89,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useBinanceStore } from '@/stores/useBinanceStore.ts';
 
 const binanceStore = useBinanceStore();
@@ -100,8 +101,18 @@ const quantity = ref<number | null>(null);
 const price = ref<number | null>(null);
 const alertSymbol = ref<string>('');
 const targetPrice = ref<number | null>(null);
-const userId = ref<string>('');
+const userId = ref<string>(''); 
 const alertUserId = ref<string>('');
+
+// Cargar el userId desde localStorage
+onMounted(() => {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
+    userId.value = user?.id || '';
+    alertUserId.value = user?.id || '';
+  }
+});
 
 // Funciones para operaciones
 const handleBuy = () => {
