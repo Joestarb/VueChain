@@ -20,7 +20,7 @@
         :key="seller.userName"
         class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-105 hover:shadow-xl"
       >
-        <h3 class="text-xl font-semibold text-gray-700 mb-4">{{ seller.userName }}</h3>
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">{{ getDisplayName(seller.userName) }}</h3>
         <p class="text-gray-500">Precio: {{ seller.price }} USDT</p>
         <p class="text-gray-500">Cantidad: {{ seller.quantity }}</p>
 
@@ -46,13 +46,35 @@ const binanceStore = useBinanceStore();
 const router = useRouter();
 const searchQuery = ref('');
 
+// Lista de nombres aleatorios para vendedores
+const firstNames = ['Carlos', 'Ana', 'Luis', 'Elena', 'Javier', 'Sofía', 'Andrés', 'Mariana', 'Ricardo', 'Valeria'];
+const lastNames = ['Gómez', 'Rodríguez', 'Fernández', 'López', 'Martínez', 'Pérez', 'García', 'Torres', 'Vargas', 'Jiménez'];
+
+// Función para generar un nombre aleatorio
+const getRandomName = () => {
+  const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+  return `${randomFirstName} ${randomLastName}`;
+};
+
+// Diccionario reactivo para almacenar nombres aleatorios asignados a cada usuario
+const simulatedNamesMap = ref<Record<string, string>>({});
+
+// Función para obtener un nombre visible para cada vendedor
+const getDisplayName = (userName: string) => {
+  if (!simulatedNamesMap.value[userName]) {
+    simulatedNamesMap.value[userName] = getRandomName();
+  }
+  return simulatedNamesMap.value[userName];
+};
+
 // Filtrar vendedores según el nombre o el precio
 const filteredSellers = computed(() => {
   if (!searchQuery.value) {
     return binanceStore.sellers;
   }
   return binanceStore.sellers.filter((seller) =>
-    seller.userName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+    getDisplayName(seller.userName).toLowerCase().includes(searchQuery.value.toLowerCase()) ||
     seller.price.toString().includes(searchQuery.value)
   );
 });

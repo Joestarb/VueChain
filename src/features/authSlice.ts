@@ -5,6 +5,7 @@ import type { User } from '../types/userInterface'
 import type { Login } from '../types/userInterface'
 import type { AuthResponse } from '../types/userInterface'
 
+
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: null as AuthResponse | null, // Guarda el usuario autenticado
